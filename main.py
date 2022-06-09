@@ -9,31 +9,43 @@ from random import randint
 def Sensors():
     # Temperature simulation(25 degrees+α)
     now = time.time()
-    print(now%5)
     temp = 15 + now % 3 + (now / 10) % 10
     # Truncate to two decimal places
     str = "{0:.0f}".format(temp)
     temp = float(str)
-    print("Temprature:",temp)
-
-    # Sensor state simulation(0 or 1)
-    m_sensor = random.randint(0, 1)
-    print("Motion:",m_sensor)
+    print("Temprature:", temp,"Deg C")
 
     # Humidity simulation(25 degrees+α)
     hum = 30 + now % 3 + (now / 10) % 10
     # Truncate to two decimal places
     strh = "{0:.0f}".format(hum)
     hum = float(strh)
-    print("Humidity:",hum)
+    print("Humidity:",hum,"%")
+
+    # Sensor state simulation(0 or 1)
+    m_sensor = random.randint(0, 1)
+    print("Motion:",m_sensor)
+
+    # Sensor state simulation(0 or 1)
+    S_sensor = random.randint(0, 1)
+    print("Smoke:", S_sensor)
+
 
     if temp >= 24.0:
         print("Temp is high")
-    elif temp <13:
+    elif temp <16:
+        print("Temp is low")
+
+    if hum >= 50.0:
+        print("Temp is high")
+    elif hum < 40:
         print("Temp is low")
 
     if m_sensor==1:
         print("Motion Detected")
+
+    if S_sensor==1:
+        print("Fire Alert")
 
 
 # Periodic execution setting processing
