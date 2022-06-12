@@ -5,7 +5,7 @@ import random
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 
-Broker = "192.168.1.252"
+Broker = "192.168.0.112"
 
 sub_topic = "sensor/instructions"    # receive messages on this topic
 
@@ -15,11 +15,13 @@ pub_topic = "sensor/data"       # send messages to this topic
 ############### sensehat inputs ##################
 def read_temp():
     ts = TempratureSensor(20,10,15,30)
-    return ts
+    Ts=ts.sense()
+    return Ts
 
 def read_humi():
     hs = HumiditySensor(45, 10, 15, 60)
-    return hs
+    Hs=hs.sense()
+    return Hs
 
 def read_motion():
     # Sensor state simulation(0 or 1)
@@ -56,6 +58,8 @@ client.connect(Broker, 1883, 60)
 client.loop_start()
 
 while True:
+    ts = TempratureSensor(20, 10, 15, 30)
     sensor_data = [read_temp(), read_humi(), read_motion(), read_smoke() ]
     client.publish("monto/solar/sensors", str(sensor_data))
-    time.sleep(1*60)
+    print("Just Published " + str(sensor_data) + " topic Sensor data" )
+    time.sleep(2)
