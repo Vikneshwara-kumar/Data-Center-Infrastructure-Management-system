@@ -1,12 +1,11 @@
 import time
 import threading
-import asyncio
 import random
-from random import seed
-from random import randint
 from SimulatedIoT import TempratureSensor
 from SimulatedIoT import HumiditySensor
 # Periodic execution processing
+
+
 
 
 def IoT():
