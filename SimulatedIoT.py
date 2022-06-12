@@ -45,3 +45,37 @@ class HumiditySensor:
         value = max(value,self.minHumidity)
         value = min(value,self.maxHumidity)
         return value
+
+class MotionSensor:
+    sensorType="Motion"
+    instanceID="54ks565ks"
+    unit ="none"
+    def __init__(self, min, max):
+        self.min = min
+        self.max = max
+
+    def sense(self):
+        self.value = self.simpleRandom()
+        return self.value
+
+    def simpleRandom(self):
+        value = random.randint(self.min, self.max)
+        return value
+
+
+class SmokeSensor:
+    sensorType = "smoke & Fire"
+    instanceID = "55ks566ks"
+    unit = "none"
+
+    def __init__(self, min, max):
+        self.min = min
+        self.max = max
+
+    def sense(self):
+        self.value = self.simpleRandom()
+        return self.value
+
+    def simpleRandom(self):
+        value = random.randint(self.min, self.max)
+        return value

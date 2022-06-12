@@ -1,37 +1,46 @@
 from SimulatedIoT import TempratureSensor
 from SimulatedIoT import HumiditySensor
+from SimulatedIoT import MotionSensor
+from SimulatedIoT import SmokeSensor
+
 import time
+from datetime import datetime
+import json
 import random
 import paho.mqtt.client as mqtt
-import paho.mqtt.publish as publish
 
-Broker = "192.168.0.112"
-
-sub_topic = "sensor/instructions"    # receive messages on this topic
-
-pub_topic = "sensor/data"       # send messages to this topic
 
 
 ############### sensehat inputs ##################
 def read_temp():
     ts = TempratureSensor(20,10,15,30)
-    Ts=ts.sense()
-    return Ts
+    dt = datetime.now().strftime("%d-%m-%YT%H:%M:%S")
+    message = {
+        "type-id": "Data Center " + ts.sensorType,
+        "instance-id": ts.instanceID,
+        "timestamp": dt,
+        "value": {
+            ts.unit: ts.sense()
+        }
+    }
+    jmsg = json.dumps(message, indent=4)
+    mqtt_publisher.publish('MainFrame/' + ts.sensorType + '/' + ts.instanceID, jmsg, 2)
+    return jmsg
 
-def read_humi():
+def read_hum():
     hs = HumiditySensor(45, 10, 15, 60)
-    Hs=hs.sense()
-    return Hs
-
-def read_motion():
-    # Sensor state simulation(0 or 1)
-    m_sensor = random.randint(0, 1)
-    return m_sensor
-
-def read_smoke():
-    # Sensor state simulation(0 or 1)
-    S_sensor = random.randint(0, 1)
-    return S_sensor
+    dt = datetime.now().strftime("%d-%m-%YT%H:%M:%S")
+    message = {
+        "type-id": "Data Center " + hs.sensorType,
+        "instance-id": hs.instanceID,
+        "timestamp": dt,
+        "value": {
+            hs.unit: hs.sense()
+        }
+    }
+    jmsg = json.dumps(message, indent=4)
+    mqtt_publisher.publish('MainFrame/' + hs.sensorType + '/' + hs.instanceID, jmsg, 2)
+    return jmsg
 
 ############### MQTT section ##################
 
@@ -39,7 +48,6 @@ def read_smoke():
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
-    client.subscribe(sub_topic)
 
 # when receiving a mqtt message do this;
 
@@ -47,19 +55,16 @@ def on_message(client, userdata, msg):
     message = str(msg.payload)
     print(msg.topic+" "+message)
 
-def on_publish(mosq, obj, mid):
-    print("mid: " + str(mid))
 
-
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-client.connect(Broker, 1883, 60)
-client.loop_start()
+mqtt_publisher = mqtt.Client('Temperature publisher')
+mqtt_publisher.on_connect = on_connect
+mqtt_publisher.username_pw_set("username", "password")
+mqtt_publisher.connect('192.168.0.112', 1883, 70)
+mqtt_publisher.loop_start()
 
 while True:
-    ts = TempratureSensor(20, 10, 15, 30)
-    sensor_data = [read_temp(), read_humi(), read_motion(), read_smoke() ]
-    client.publish("monto/solar/sensors", str(sensor_data))
-    print("Just Published " + str(sensor_data) + " topic Sensor data" )
-    time.sleep(2)
+    temp_data = read_temp()
+    hum_data = read_hum()
+    print("Just Published " + str(temp_data) + " topic Sensor data" )
+    print("Just Published " + str(hum_data) + " topic Sensor data")
+    time.sleep(5)
