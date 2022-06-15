@@ -10,8 +10,6 @@ import random
 import paho.mqtt.client as mqtt
 
 
-
-############### sensehat inputs ##################
 def read_temp():
     ts = TempratureSensor(20,10,15,30)
     dt = datetime.now().strftime("%d-%m-%YT%H:%M:%S")
