@@ -13,9 +13,19 @@ def on_message(client, userdata, message):
     Temp = round(msg.get('Temperature'))
     Humi  = round(msg.get('Humidity'))
     Motion = (msg.get('Motion-Detector'))
+    smoke = (msg.get('Fire-Alarm'))
     print(Temp)
     print(Humi)
-    print(Motion)
+    print(smoke)
+    if Motion == 1:
+        print("Motion detected")
+    else:
+        print("no motion Detected")
+    if smoke == 0:
+        print("Fire detected")
+    else:
+        print("no Fire Detected")
+
 
 
 mqtt_subscriber = mqtt.Client()

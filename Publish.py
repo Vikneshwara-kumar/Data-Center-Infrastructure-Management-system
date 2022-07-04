@@ -18,7 +18,6 @@ GPIO.setup(smoke_sensor, GPIO.IN)
 
 motion=0
 smoke=0
-
 flag = False
 
 
@@ -34,7 +33,7 @@ def Sensor_monitor():
             print('-')
     Smoke = GPIO.input(smoke_sensor)
     if Smoke == 0 or Smoke == 1:  # check if reads were 0 or 1 it can be 255 also because of IO Errors so remove those values
-        if smoke == 0:
+        if Smoke == 0:
             print('Fire Detected')
         else:
             print('-')
@@ -45,7 +44,7 @@ def Sensor_monitor():
         "Temperature": ts.sense(),
         "Humidity": hs.sense(),
         "Motion-Detector": motion,
-        "Fire-Alarm": smoke
+        "Fire-Alarm": Smoke
     }
     jmsg = json.dumps(message, indent=4)
     mqtt_publisher.publish("Area-1", jmsg, 1)
@@ -92,3 +91,4 @@ while True:
         print("Just Published " + str(Sensor_monitor()) + " topic Sensor data" )
     else:
         print("waiting for connection....")
+
