@@ -26,17 +26,17 @@ def Sensor_monitor():
     hs = HumiditySensor(45, 10, 15, 60)
     dt = datetime.now().strftime("%d-%m-%YT%H:%M:%S")
     motion = GPIO.input(pir_sensor)
-    if motion == 0 or motion == 1:  # check if reads were 0 or 1 it can be 255 also because of IO Errors so remove those values
-        if motion == 1:
-            print('Motion Detected')
-        else:
-            print('-')
+    #if motion == 0 or motion == 1:  # check if reads were 0 or 1 it can be 255 also because of IO Errors so remove those values
+        #if motion == 1:
+            #print('Motion Detected')
+        #else:
+            #print('-')
     Smoke = GPIO.input(smoke_sensor)
-    if Smoke == 0 or Smoke == 1:  # check if reads were 0 or 1 it can be 255 also because of IO Errors so remove those values
-        if Smoke == 0:
-            print('Fire Detected')
-        else:
-            print('-')
+    #if Smoke == 0 or Smoke == 1:  # check if reads were 0 or 1 it can be 255 also because of IO Errors so remove those values
+        #if Smoke == 0:
+            #print('Fire Detected')
+        #else:
+            #print('-')
     message = {
         "Area-id": "Data Center-1",
         "instance-id": ts.instanceID,
