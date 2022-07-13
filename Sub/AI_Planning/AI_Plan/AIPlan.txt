@@ -1,0 +1,3 @@
+(motion_detection off)
+(alarm off)
+(fan prev low)
