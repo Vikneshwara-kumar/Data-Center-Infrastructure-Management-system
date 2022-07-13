@@ -11,8 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
-
     <!-- JQuery links  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -42,15 +40,15 @@
                 <div class="col jumbotron-fluid p-4 mx-2"><h1 class="sensor2"> Humidity </h1></div>
                 <div class="w=150px"></div>
                 <div class="col jumbotron-fluid p-4 mx-2"><h1 class="sensor3"> Motion </h1></div>
-                <div class="col jumbotron-fluid p-4 mx-2"><h1 class="sensor4"> Fire-Alarm </h1></div>
+                <div class="col jumbotron-fluid p-4 mx-2"><h1 class="sensor4"> Fire_Alarm </h1></div>
                 <div class="w=150px"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-6 jumbotron-fluid p-4 mx-2">
-                    <h1 class="actuator1"> Fan : </h1>
-                    <br>
                     <h1 class="actuator2"> Condition : </h1>
+                    <br>
+                    <h1 class="actuator1"> Fan : </h1>
                     <br>
                     <h1 class="actuator3"> Servo : </h1>
                 </div>
@@ -63,9 +61,9 @@
 
     <style>
         .jumbotron-fluid{
-            color: white;
+            color: black;
             height: 210px;
-            background-color:rgb(43, 42, 42);
+            background-color:#d6d6d662;;
             justify-content: center;
             font-size: xx-small;
             font-family: SF Pro Text,SF Pro Icons,AOS Icons,Helvetica Neue,Helvetica,Arial,sans-serif; 
@@ -159,17 +157,17 @@
                 $(".sensor3").text("Motion : " +  result[3] );
 
                 $(".sensor4").text("");
-                $(".sensor4").text("Fire_Alarm : " +  result[5] );
+                $(".sensor4").text("Fire Alarm : " +  result[5] );
 
-
-                $(".actuator1").text("");
-                $(".actuator1").text("Fan : " +  result[4] );
 
                 $(".actuator2").text("");
-                $(".actuator2").text("Condition : " +  result[7] );
+                $(".actuator2").text("Facility Condition : " +  result[7] );
+
+                $(".actuator1").text("");
+                $(".actuator1").text("AC : " +  result[4] );
 
                 $(".actuator3").text("");
-                $(".actuator3").text("Servo : " +  result[6] );
+                $(".actuator3").text("Fire Suppression Sys : " +  result[6] );
 
                 // call it again after one second
                 setTimeout(requestData, 5000);
@@ -219,7 +217,7 @@
                 chart:
                     {
                         renderTo: 'data-humidity',
-                        defaultSeriesType: 'area',
+                        defaultSeriesType: 'line',
                         events: {
                             load: requestData
                         }
@@ -242,8 +240,8 @@
                     }
                 },
                 series: [{
-                    lineColor: '#303030',
-                    color: '#1d82b8',
+                    lineColor: '#c23d23',
+                    color: '#d95c1e',
                     name: 'Humidity',
                     data: []
                 }]
