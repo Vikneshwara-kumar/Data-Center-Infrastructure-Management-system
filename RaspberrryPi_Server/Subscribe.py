@@ -2,8 +2,8 @@
 import paho.mqtt.client as mqtt
 import ssl
 import json
-from ProblemFileGenerator import  GenerateProblemPDDLFile
-from ProblemFileGenerator import GetAIPlan
+from Problem_File_Gen import  GenerateProblemPDDLFile
+from Problem_File_Gen import GetAIPlan
 
 
 def on_connect(client, userdata, flags, rc):                                # Funcition for establishing connection
