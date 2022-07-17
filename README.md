@@ -1,4 +1,4 @@
-##Data Center Infrastructure Management system
+# Data Center Infrastructure Management system
 This is a Datacenter infrastructure management system project deployed on multiple devices and also on the AWS Cloud.
 The RaspberryPi_IoT_Node folder contains publish action scripts. run both the scripts one will generate and publish sensor values to the cloud and get actions to perform from the cloud.
 The RaspberryPi_server folder contains subscribe Problem_file_gen, and AI plan. Run subscribe script that will connect to the AWS IoT cloud to get the sensor values and depending on the control algorithms in the subscribe script the problem_file_gen will be invoked to generate a problem file, later an API call is issued to the PDDL solver to generate the AI Plan based on the values received from RaspberryPi_Iot_node. The script generates a set of actions to perform from the Plan and the RaspberryPi_server publishes it to the Actions topic which is subscribed to by RaspberryPi_Iot_node for performing those actions 
